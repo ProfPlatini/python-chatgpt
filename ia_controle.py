@@ -5,6 +5,7 @@ import serial
 from openai import OpenAI
 from dotenv import load_dotenv
 import cv2
+from agno.tools.duckduckgo import DuckDuckGoTools
 
 load_dotenv()
 
@@ -36,7 +37,7 @@ while True:
                     "role":"user",
                     "content":[
                         {
-                            "type":"text", "text":"Existe uma garrafa de água na imagem? Responda apenas com: SIM ou NÃO"
+                            "type":"text", "text":"Existe um mosquetão nessa imagem, isso é fato. O mosquetão é um conector metálico de segurança com gatilho móvel, essencial em atividades verticais (escalada, rapel, resgate) e industriais para unir cordas ou equipamentos.A pergunta é: ele está corretamente e devidamente fechado? Responda com SIM ou NÃO"
                         },
                         {
                             "type": "image_url","image_url":{"url": f"data:image/jpeg;base64,{imagem_texto}"}
@@ -50,7 +51,7 @@ while True:
         #Queremos somente  o conteúdo de resposta
         resultado = resposta.choices[0].message.content.upper()
         if "SIM" in resultado:
-            print("Garrafa detectada! Ligando LED 🆗")
+            print("Pessoa detectada! Ligando LED 🆗")
             porta_serial.write(b'1')
         else:
             print("Não detectado! Desligando LED ❌")
